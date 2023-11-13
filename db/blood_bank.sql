@@ -1,26 +1,25 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
--- http://www.phpmyadmin.net
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Sep 13, 2017 at 06:37 AM
--- Server version: 5.6.12-log
--- PHP Version: 5.4.12
+-- Host: 127.0.0.1
+-- Generation Time: Nov 13, 2023 at 11:14 PM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 7.4.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `blood_bank`
 --
-CREATE DATABASE IF NOT EXISTS `blood_bank` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `blood_bank`;
 
 -- --------------------------------------------------------
 
@@ -28,13 +27,12 @@ USE `blood_bank`;
 -- Table structure for table `area`
 --
 
-CREATE TABLE IF NOT EXISTS `area` (
-  `AREA_ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `area` (
+  `AREA_ID` int(11) NOT NULL,
   `CITY_ID` int(11) NOT NULL,
   `STATE_ID` int(11) NOT NULL,
-  `AREA_NAME` varchar(150) NOT NULL,
-  PRIMARY KEY (`AREA_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=368 ;
+  `AREA_NAME` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `area`
@@ -405,8 +403,8 @@ INSERT INTO `area` (`AREA_ID`, `CITY_ID`, `STATE_ID`, `AREA_NAME`) VALUES
 -- Table structure for table `blood_donor`
 --
 
-CREATE TABLE IF NOT EXISTS `blood_donor` (
-  `DONOR_ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `blood_donor` (
+  `DONOR_ID` int(11) NOT NULL,
   `NAME` varchar(150) NOT NULL,
   `FATHER_NAME` varchar(150) NOT NULL,
   `GENDER` varchar(150) NOT NULL,
@@ -427,9 +425,8 @@ CREATE TABLE IF NOT EXISTS `blood_donor` (
   `NEW_DONOR` varchar(150) NOT NULL,
   `LAST_D_DATE` date NOT NULL,
   `DONOR_PIC` varchar(150) NOT NULL,
-  `STATUS` int(11) NOT NULL,
-  PRIMARY KEY (`DONOR_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `STATUS` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -437,12 +434,11 @@ CREATE TABLE IF NOT EXISTS `blood_donor` (
 -- Table structure for table `city`
 --
 
-CREATE TABLE IF NOT EXISTS `city` (
-  `CITY_ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `city` (
+  `CITY_ID` int(11) NOT NULL,
   `STATE_ID` int(11) NOT NULL,
-  `CITY_NAME` varchar(150) NOT NULL,
-  PRIMARY KEY (`CITY_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=75 ;
+  `CITY_NAME` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `city`
@@ -527,11 +523,10 @@ INSERT INTO `city` (`CITY_ID`, `STATE_ID`, `CITY_NAME`) VALUES
 -- Table structure for table `country`
 --
 
-CREATE TABLE IF NOT EXISTS `country` (
-  `COUNTRY_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `COUNTRY_NAME` varchar(150) NOT NULL,
-  PRIMARY KEY (`COUNTRY_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+CREATE TABLE `country` (
+  `COUNTRY_ID` int(11) NOT NULL,
+  `COUNTRY_NAME` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `country`
@@ -556,16 +551,15 @@ INSERT INTO `country` (`COUNTRY_ID`, `COUNTRY_NAME`) VALUES
 -- Table structure for table `messages`
 --
 
-CREATE TABLE IF NOT EXISTS `messages` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `messages` (
+  `ID` int(11) NOT NULL,
   `NAME` varchar(150) NOT NULL,
   `CONTACT` text NOT NULL,
   `EMAIL` varchar(200) NOT NULL,
   `MESSAGE` text NOT NULL,
   `STATUS` text NOT NULL,
-  `LOGS` datetime NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `LOGS` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `messages`
@@ -574,7 +568,8 @@ CREATE TABLE IF NOT EXISTS `messages` (
 INSERT INTO `messages` (`ID`, `NAME`, `CONTACT`, `EMAIL`, `MESSAGE`, `STATUS`, `LOGS`) VALUES
 (2, 'Gokul', '9087876788', 'gokul@gmail.com', 'Test Message', '0', '2016-07-11 19:56:43'),
 (3, 'ram', '345345', 'rawfw@dfg.v', 'gdgreg', '0', '2017-01-22 11:11:46'),
-(4, 'sam', '9876543212', 'sam@gmail.com', 'hai', '1', '2017-03-16 10:40:34');
+(4, 'sam', '9876543212', 'sam@gmail.com', 'hai', '1', '2017-03-16 10:40:34'),
+(5, 'John Doe', '1234567', 'test@gmail.com', 'need A+ blood', '0', '2023-11-13 23:05:05');
 
 -- --------------------------------------------------------
 
@@ -582,8 +577,8 @@ INSERT INTO `messages` (`ID`, `NAME`, `CONTACT`, `EMAIL`, `MESSAGE`, `STATUS`, `
 -- Table structure for table `request_blood`
 --
 
-CREATE TABLE IF NOT EXISTS `request_blood` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `request_blood` (
+  `ID` int(11) NOT NULL,
   `NAME` varchar(150) NOT NULL,
   `GENDER` varchar(150) NOT NULL,
   `BLOOD` varchar(150) NOT NULL,
@@ -601,9 +596,16 @@ CREATE TABLE IF NOT EXISTS `request_blood` (
   `REASON` text NOT NULL,
   `PIC` varchar(150) NOT NULL,
   `STATUS` int(11) NOT NULL,
-  `CDATE` date NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `CDATE` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `request_blood`
+--
+
+INSERT INTO `request_blood` (`ID`, `NAME`, `GENDER`, `BLOOD`, `BUNIT`, `HOSP`, `CITY`, `PIN`, `DOC`, `RDATE`, `CNAME`, `CADDRESS`, `EMAIL`, `CON1`, `CON2`, `REASON`, `PIC`, `STATUS`, `CDATE`) VALUES
+(1, 'John Doe', 'Male', 'AB+', 2, 'Newyork hospital', 'Newyork', '111233', 'John Smith', '2023-10-21', 'abcd', 'Newyork hospital', 'test@gmail.com', '1234567890', '1234567890', 'Operation', 'request_image/937mypic2.jpg', 0, '0000-00-00'),
+(2, 'John Doe', 'Male', 'A1+', 2, 'New York Hospital', 'Dhaka', '1122', 'Abcd', '2023-11-14', 'John Doe', 'Newyork hospital', 'test@gmail.com', '123456789', '123456789', 'dengue', 'request_image/608image.png', 0, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -611,12 +613,11 @@ CREATE TABLE IF NOT EXISTS `request_blood` (
 -- Table structure for table `state`
 --
 
-CREATE TABLE IF NOT EXISTS `state` (
-  `STATE_ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `state` (
+  `STATE_ID` int(11) NOT NULL,
   `STATE_NAME` varchar(150) NOT NULL,
-  `COUNTRY_ID` int(11) NOT NULL,
-  PRIMARY KEY (`STATE_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
+  `COUNTRY_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `state`
@@ -670,6 +671,99 @@ INSERT INTO `state` (`STATE_ID`, `STATE_NAME`, `COUNTRY_ID`) VALUES
 (46, 'Saudi Arabia', 2),
 (47, 'Singapore', 6),
 (48, 'Saudi Arabia', 2);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `area`
+--
+ALTER TABLE `area`
+  ADD PRIMARY KEY (`AREA_ID`);
+
+--
+-- Indexes for table `blood_donor`
+--
+ALTER TABLE `blood_donor`
+  ADD PRIMARY KEY (`DONOR_ID`);
+
+--
+-- Indexes for table `city`
+--
+ALTER TABLE `city`
+  ADD PRIMARY KEY (`CITY_ID`);
+
+--
+-- Indexes for table `country`
+--
+ALTER TABLE `country`
+  ADD PRIMARY KEY (`COUNTRY_ID`);
+
+--
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `request_blood`
+--
+ALTER TABLE `request_blood`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `state`
+--
+ALTER TABLE `state`
+  ADD PRIMARY KEY (`STATE_ID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `area`
+--
+ALTER TABLE `area`
+  MODIFY `AREA_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=368;
+
+--
+-- AUTO_INCREMENT for table `blood_donor`
+--
+ALTER TABLE `blood_donor`
+  MODIFY `DONOR_ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `city`
+--
+ALTER TABLE `city`
+  MODIFY `CITY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+
+--
+-- AUTO_INCREMENT for table `country`
+--
+ALTER TABLE `country`
+  MODIFY `COUNTRY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `request_blood`
+--
+ALTER TABLE `request_blood`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `state`
+--
+ALTER TABLE `state`
+  MODIFY `STATE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
